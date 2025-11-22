@@ -1,31 +1,31 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ToursService } from './tours.service';
 
 @Controller('tours')
 export class ToursController {
   constructor(private toursService: ToursService) {}
 
-  @Get()
+  @Get('top-5-cheap')
   aliasTopTour() {}
 
   @Get()
   findAll() {}
 
-  @Get()
-  findOne() {}
+  @Get(':id')
+  findOne(@Param('id') id: string) {}
 
   @Post()
   create() {}
 
-  @Patch()
-  update() {}
+  @Patch(':id')
+  update(@Param('id') id: string) {}
 
-  @Delete()
-  delete() {}
+  @Delete(':id')
+  delete(@Param('id') id: string) {}
 
-  @Get()
+  @Get('tours-stats')
   stats() {}
 
-  @Get()
-  monthlyPlan() {}
+  @Get('monthly-plan/:year')
+  monthlyPlan(@Param('year') year: string) {}
 }
