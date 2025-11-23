@@ -85,7 +85,7 @@ export class User {
   }
 }
 
-const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
 
 type UserDocument = HydratedDocument<User>;
 type UserQueryContext = mongoose.Query<any, any, UserDocument>;
