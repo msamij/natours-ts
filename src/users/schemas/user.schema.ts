@@ -49,13 +49,13 @@ export class User {
   })
   passwordConfirm: string;
 
-  @Prop({ select: false })
+  @Prop({ type: Date, select: false })
   passwordChangedAt: Date;
 
-  @Prop({ select: false })
+  @Prop({ type: Date, select: false })
   passwordResetToken: string;
 
-  @Prop({ select: false })
+  @Prop({ type: Date, select: false })
   passwordResetExpires: Date;
 
   @Prop({
