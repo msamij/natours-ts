@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ id: false })
-export class StartLocation {
+@Schema()
+export class Location {
   @Prop({ type: String, default: 'Point', enum: ['Point'] })
   type: string;
 
@@ -12,7 +12,7 @@ export class StartLocation {
   address: string;
 
   @Prop()
-  description: string;
+  day: number;
 }
 
-export const StartLocationSchema = SchemaFactory.createForClass(StartLocation);
+export const LocationSchema = SchemaFactory.createForClass(Location);

@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 import { StartLocation } from './startLocation.schema';
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Tour {
   @Prop({
     type: String,
@@ -84,6 +85,14 @@ export class Tour {
 
   @Prop({ type: StartLocation })
   startLocation: StartLocation;
+
+  @Prop([Location])
+  location: Location[];
+
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  })
+  guides: mongoose.Types.ObjectId[];
 }
 
 export const TourSchema = SchemaFactory.createForClass(Tour);
