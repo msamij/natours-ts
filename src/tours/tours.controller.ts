@@ -1,4 +1,5 @@
 import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Tour } from './schemas/tour.schema';
 import { ToursService } from './tours.service';
 
 @Controller('tours')
@@ -9,7 +10,9 @@ export class ToursController {
   aliasTopTour() {}
 
   @Get()
-  findAll() {}
+  async findAll(): Promise<Tour[]> {
+    return this.toursService.findAll();
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {}
