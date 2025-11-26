@@ -5,11 +5,6 @@ import { ToursModule } from './tours/tours.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    UsersModule,
-    ToursModule,
-    DatabaseModule,
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), UsersModule, ToursModule, DatabaseModule],
 })
 export class AppModule {}

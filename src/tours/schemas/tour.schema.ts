@@ -40,13 +40,13 @@ export class Tour {
     min: [1, 'Rating must be above 1.0'],
     max: [5, 'Rating must be below 5.0'],
   })
-  ratingsAverage: Number;
+  ratingsAverage: number;
 
   @Prop({ type: Number, default: 0 })
-  ratingsQuantity: Number;
+  ratingsQuantity: number;
 
   @Prop({ type: Number, required: [true, 'A tour must have a price'] })
-  price: Number;
+  price: number;
 
   @Prop({
     type: Number,
@@ -57,7 +57,7 @@ export class Tour {
       message: 'Discount price ({VALUE}) should be be below regular price.',
     },
   })
-  priceDiscount: Number;
+  priceDiscount: number;
 
   @Prop({
     type: String,
