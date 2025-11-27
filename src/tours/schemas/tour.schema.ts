@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { Location } from './location.schema';
 import { StartLocation } from './startLocation.schema';
 
@@ -98,6 +98,18 @@ export class Tour {
 
 export const TourSchema = SchemaFactory.createForClass(Tour);
 
+// The shape of a Tour document based on the schema.
+type TourDocument = HydratedDocument<Tour> & { start: number };
+
+// The query context used inside pre/post('find') hooks.
+type TourQueryContext = mongoose.Query<any, any> & TourDocument;
+
 TourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
+});
+
+TourSchema.pre<TourQueryContext>(/^find/, function (next) {
+  this.find({ secretTour: { $ne: true } });
+  this.start = Date.now();
+  next();
 });
