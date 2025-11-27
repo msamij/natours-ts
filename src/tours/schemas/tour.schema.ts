@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Location } from './location.schema';
 import { StartLocation } from './startLocation.schema';
+import { Logger } from '@nestjs/common';
 
 @Schema({ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Tour {
@@ -111,5 +112,10 @@ TourSchema.virtual('durationWeeks').get(function () {
 TourSchema.pre<TourQueryContext>(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
   this.start = Date.now();
+  next();
+});
+
+TourSchema.post<TourQueryContext>(/^find/, function (_doc, next) {
+  Logger.log(`Query took ${Date.now() - this.start} milliseconds!`);
   next();
 });
