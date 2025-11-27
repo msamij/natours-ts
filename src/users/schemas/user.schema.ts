@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import mongoose, { HydratedDocument } from 'mongoose';
-import bcrypt from 'node_modules/bcryptjs';
 import validator from 'validator';
 
 @Schema({
@@ -42,7 +42,7 @@ export class User {
     required: [true, 'Please confirm your password'],
     validate: {
       validator: function (val: string) {
-        return this.password === val;
+        return (this as unknown as User).password === val;
       },
       message: 'Passwords are not the same!',
     },

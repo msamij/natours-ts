@@ -51,8 +51,8 @@ export class Tour {
   @Prop({
     type: Number,
     validate: {
-      validator: function (val: string) {
-        return val < this.price;
+      validator: function (val: number) {
+        return val < (this as unknown as Tour).price;
       },
       message: 'Discount price ({VALUE}) should be be below regular price.',
     },

@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Tour } from './schemas/tour.schema';
 import { Model } from 'mongoose';
+import { Tour } from './schemas/tour.schema';
 
 @Injectable()
 export class ToursService {
@@ -9,5 +9,16 @@ export class ToursService {
 
   async findAll(): Promise<Tour[]> {
     return this.tourModel.find().exec();
+  }
+
+  async findOne(id: string): Promise<Tour> {
+    const tour = await this.tourModel.findById(id);
+    if (!tour) {
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'No tour found with that id!',
+      });
+    }
+    return tour;
   }
 }
