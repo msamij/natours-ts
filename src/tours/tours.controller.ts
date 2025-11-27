@@ -1,6 +1,7 @@
-import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import { Tour } from './schemas/tour.schema';
 import { ToursService } from './tours.service';
+import { type Response } from 'express';
 
 @Controller('tours')
 export class ToursController {
@@ -10,8 +11,15 @@ export class ToursController {
   aliasTopTour() {}
 
   @Get()
-  async findAll(): Promise<Tour[]> {
-    return this.toursService.findAll();
+  async findAll(@Res() res: Response): Promise<Response<Tour>> {
+    const tours = await this.toursService.findAll();
+    return res.status(200).json({
+      status: 'success',
+      results: tours.length,
+      data: {
+        tours,
+      },
+    });
   }
 
   @Get(':id')

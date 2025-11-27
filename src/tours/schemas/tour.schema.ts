@@ -18,8 +18,8 @@ export class Tour {
   @Prop()
   slug: string;
 
-  @Prop({ type: String, required: [true, 'A tour must have a duration'] })
-  duration: string;
+  @Prop({ type: Number, required: [true, 'A tour must have a duration'] })
+  duration: number;
 
   @Prop({ type: Number, required: [true, 'A tour must have a group size'] })
   maxGroupSize: number;
@@ -97,3 +97,7 @@ export class Tour {
 }
 
 export const TourSchema = SchemaFactory.createForClass(Tour);
+
+TourSchema.virtual('durationWeeks').get(function () {
+  return this.duration / 7;
+});
